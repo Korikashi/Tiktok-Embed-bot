@@ -1,4 +1,6 @@
 const { Client, GatewayIntentBits } = require('discord.js');
+const { createActionRow } = require('./utils/componentsUtils');
+const handleInteractions = require('./commands/handleInteractions');
 require('dotenv').config();
 
 const client = new Client({ 
@@ -21,14 +23,23 @@ client.on('messageCreate', async (message) => {
     const match = message.content.match(patron);
 
     if (match) {
-        const URLcorregida = match[0].replace("i", "n");
+        const originalURL = match[0].replace('tiktok','tnktok');
+        const newMessage = message.content.replace(match[0], originalURL);
 
-        const nuevoMensaje = message.content.replace(match[0], URLcorregida);
+        const [row1, row2] = createActionRow(match[0], originalURL);
 
-        await message.delete();
-
-        message.channel.send(`Tiktok enviado por ${message.author}: ${nuevoMensaje}`);
+        setTimeout(async () => {
+            await message.delete();
+        }, 3000);
+        
+        message.channel.send({
+            content: `Tiktok enviado por ${message.author.username}: ${newMessage}`,
+            components: [row1, row2],
+        });
+        
     }
 });
+
+client.on('interactionCreate', handleInteractions);
 
 client.login(process.env.DISCORD_TOKEN);
