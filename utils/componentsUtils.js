@@ -3,7 +3,6 @@ const { ActionRowBuilder, ButtonBuilder, ButtonStyle, StringSelectMenuBuilder } 
 function createActionRow(originalURL, defaultRedirect) {
     const alternateRedirect = defaultRedirect.replace('tnktok', 'tiktxk');
 
-    const placeholder = defaultRedirect === 'tnktok' ? ' Selecciona tnktok o tiktxk': 'Selecciona una opcion';
 
     const selectMenu = new StringSelectMenuBuilder()
         .setCustomId('select_redirect')
@@ -13,13 +12,11 @@ function createActionRow(originalURL, defaultRedirect) {
                 label: 'tnktok',
                 description: 'Redirigir usando tnktok',
                 value: 'tnktok',
-                default: defaultRedirect === 'tnktok',
             },
             {
                 label: 'tiktxk',
                 description: 'redirigir usando tiktxk',
                 value: 'tiktxk',
-                default: defaultRedirect === 'tiktxk',
             },
         ]);
 
