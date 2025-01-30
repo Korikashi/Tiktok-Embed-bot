@@ -7,11 +7,10 @@ async function handleURL(message) {
     if (match) {
         message.suppressEmbeds(true); // suprime el embed del mensaje original
 
-        const originalURL = match[0].replace('tiktok', 'tnktok'); // modifica el dominio de la URL encontrada
-        const newMessage = message.content.replace(match[0], originalURL); //Reemplaza la URL
+        const modifiedURL = match[0].replace('tiktok', 'tnktok'); // modifica el dominio de la URL encontrada
 
         // envia un mensaje con la URL modificada  
-        await message.reply({content: newMessage });
+        await message.reply({content: modifiedURL });
     }
     
 };
